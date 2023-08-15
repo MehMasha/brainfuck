@@ -46,14 +46,14 @@ while j < len(s):
                 # Если конец цикла не встречали
                 if last_closing is None:
                     in_cycles = 0
+                    j += 1
                     # То топаем до конца цикла, пропуская все вложенные
                     while s[j] != ']' or in_cycles != 0:
-                        j += 1
                         if s[j] == '[':
                             in_cycles += 1
                         elif s[j] == ']' and in_cycles:
                             in_cycles -= 1
-                            j += 1
+                        j += 1
         case ']':
             start = stack[-1]
             j = start - 1
