@@ -3,6 +3,14 @@
 with open('max.bf', encoding='utf-8') as f:
     s = f.read()
 
+s1 = ''
+for i in s:
+    if i in '+-><.,[]':
+        s1 += i
+
+s = s1
+print(s[105:])
+
 n = 30000
 array = [0] * n
 i = 0
@@ -45,6 +53,7 @@ while j < len(s):
                             in_cycles += 1
                         elif s[j] == ']' and in_cycles:
                             in_cycles -= 1
+                            j += 1
         case ']':
             start = stack[-1]
             j = start - 1
@@ -52,12 +61,11 @@ while j < len(s):
         case '.':
             print(array[i], chr(array[i])) 
         case ',':
-            a = int(input())
+            a = int(input()) % 256
             array[i] = a
     j += 1
 
 
-print(*array[:100])
+print(*array[:10])
 
-
-# ++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.
+# интерпретатор не работает :(
