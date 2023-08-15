@@ -1,4 +1,8 @@
-s = input()
+# s = input()
+
+with open('max.bf', encoding='utf-8') as f:
+    s = f.read()
+
 n = 30000
 array = [0] * n
 i = 0
@@ -22,17 +26,19 @@ while j < len(s):
             # Новый цикл, которого еще не было
             if j not in stack:
                 stack.append(j)
-            
-            if array[i] != 0:
-                pass
-            elif array[i] == 0:
+            # Если условие цика не выаполняется, то надо перейти на ]
+            if array[i] == 0:
+                # Убираем этот цикл из стека
                 stack.pop()
-                # перенос на ]
+                # Если раньше уже видели конец этого цикла
                 if last_closing:
+                    # То переходим в конец и обнуляем его
                     j = last_closing
                     last_closing = None
-                else:
+                # Если конец цикла не встречали
+                if last_closing is None:
                     in_cycles = 0
+                    # То топаем до конца цикла, пропуская все вложенные
                     while s[j] != ']' or in_cycles != 0:
                         j += 1
                         if s[j] == '[':
@@ -42,6 +48,7 @@ while j < len(s):
         case ']':
             start = stack[-1]
             j = start - 1
+            last_closing = j
         case '.':
             print(array[i], chr(array[i])) 
         case ',':
